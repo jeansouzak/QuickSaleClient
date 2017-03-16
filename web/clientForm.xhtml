@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="corpo">
+        <h1 class="page-header">Client Form</h1>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <h:form>
+                    <h:inputHidden value="#{clientMB.client.id}" /> 
+                    <div class="form-group ">
+                        <label class="control-label requiredField" for="name">
+                            Name
+                            <span class="asteriskField">
+                                *
+                            </span>
+                        </label>
+                        <h:inputText
+                            autocomplete="off" value="#{clientMB.client.name}" maxlength="15" class="form-control" required="true" />
+
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label requiredField" for="name1">
+                            Lastname
+                            <span class="asteriskField">
+                                *
+                            </span>
+                        </label>
+                        <h:inputText 
+                            autocomplete="off" 
+                            value="#{clientMB.client.lastName}" maxlength="30" class="form-control" required="true" />
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label requiredField" for="name2">
+                            Document
+                            <span class="asteriskField">
+                                *
+                            </span>
+                        </label>
+                        <h:inputText 
+                            autocomplete="off" 
+                            maxlength="15" value="#{clientMB.client.cpf}" class="form-control" required="true" />
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <h:commandButton class="btn btn-success" value="Submit"
+                                             action="#{clientMB.saveClient()}"/>                            
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+    </ui:define>
+</ui:composition>
+

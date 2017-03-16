@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="corpo">
+
+        <h1 class="page-header">Client Orders</h1>
+        <h:form>
+            <h:button outcome="orderForm" value="New Order" class="btn btn-sm btn-success pull-right new-btn"/>
+        </h:form>
+        <div class="clearfix"></div>
+
+        <h:messages id="messages" class="alert alert-danger"  />
+        <ui:repeat value="#{clientOrderMB.orders}" var="order">
+            <div class="panel panel-default">               
+                <div class="panel-heading">Purchase orders from the customer
+                    <b><h:outputFormat value=" {0, date, dd-MM-yyyy}">
+                        <f:param value="#{order.date}" />
+                    </h:outputFormat></b>
+                </div>
+                <h:dataTable value="#{order.itens}" id="clientes-table"
+                             var="item" class="table table-bordered table-striped">                
+                    <h:column>
+                        <f:facet name="header">Product</f:facet>
+                            #{item.product.description}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Quantity</f:facet>
+                            #{item.quantity}
+                    </h:column>
+
+                </h:dataTable>
+
+            </div>
+        </ui:repeat>
+
+    </ui:define>
+</ui:composition>
+

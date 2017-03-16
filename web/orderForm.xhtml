@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="corpo">
+        <h:outputScript name="orderForm.js" target="body" library="js" />
+        <h1 class="page-header">New Order</h1>
+        <h:messages id="messages" class="alert alert-danger"  />
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <h:form id="cliente-cpf-form">                   
+                    <div class="form-group ">
+                        <label class="control-label requiredField">
+                            Type customer document
+                            <span class="asteriskField">
+                                *
+                            </span>
+                        </label>
+                        <h:inputText maxlength="15" value="#{orderMB.cpf}" 
+                                     autocomplete="off" class="form-control input-search-document" required="true"
+                                     />
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <h:commandLink value="Search" class="btn btn-success 
+                                           btn-search-document" >
+                                <f:ajax listener="#{orderMB.searchClientByCPF()}"
+                                        execute="cliente-cpf-form"
+                                        render="cliente-nome messages"/>                                  
+                            </h:commandLink>
+
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <h:outputLabel value="Customer found: " />
+                <div class="clearfix"></div>
+                <h:outputLabel id="cliente-nome" class="label label-primary"
+                               value="#{orderMB.client.name} #{orderMB.client.lastName}"></h:outputLabel>                        
+            </div>  
+        </div>        
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <h:form id="produto-desc-form">                   
+                    <div class="form-group ">
+                        <label class="control-label requiredField">
+                            Type product description
+                            <span class="asteriskField">
+                                *
+                            </span>
+                        </label>
+                        <h:inputText maxlength="45"
+                                     autocomplete="off" 
+                                     value="#{orderMB.productDescription}" 
+                                     class="form-control input-search-product" required="true" />
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <h:commandLink value="Search" class="btn btn-success 
+                                           btn-search-product" >
+                                <f:ajax listener="#{orderMB.searchProductsByDescription()}"
+                                        execute="produto-desc-form"
+                                        render="form-select-produto messages"/>                                  
+                            </h:commandLink>
+
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <h:form id="form-select-produto">         
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <h:outputLabel value="Products" class="control-label" for="select-produtos" />
+                                <h:selectManyListbox id="select-produtos" value="#{orderMB.selectedProducts}"
+                                                     converter="productConverter" size="5"
+                                                     class="form-control">
+                                    <f:selectItems value="#{orderMB.products}" var="product" 
+                                                   itemLabel="#{product.description}"
+                                                   itemValue="#{product}"/>
+                                </h:selectManyListbox>
+                            </div>
+                            <h:commandButton value="Add" class="btn btn-success">
+                                <f:ajax listener="#{orderMB.addProductToList()}"
+                                        execute="form-select-produto"
+                                        render="itens-table messages"/>   
+                            </h:commandButton>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+        <div class="panel panel-default">             
+            <div class="panel-heading">Order Products</div>             
+            <h:dataTable value="#{orderMB.itens}" id="itens-table"
+                         var="item" class="table table-bordered table-striped">                
+                <h:column>
+                    <f:facet name="header">Product</f:facet>
+                        #{item.product.description}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Quantity</f:facet>
+                        #{item.quantity}
+                </h:column>                    
+                <h:column>
+                    <f:facet name="header">Remove</f:facet>
+                    <h:form id="remove-form">
+                        <h:commandLink value="Remove" >
+                            <f:ajax listener="#{orderMB.removerItem(item)}"
+                                    execute="remove-form"
+                                    render="itens-table messages"/>                                  
+                        </h:commandLink>
+                    </h:form>
+                </h:column>                   
+            </h:dataTable>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="btn-group" role="group">                                        
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <h:form id="salvar-pedido-form">
+                            <h:commandButton class="btn btn-success" value="Submit"
+                                             action="#{orderMB.saveOrder()}"/>   
+                        </h:form>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <h:form id="cancelar-pedido-form">
+                            <h:commandButton class="btn btn-danger" value="Clear"
+                                             action="#{orderMB.clearOrder()}"/>   
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            
+</script>
+    </ui:define>
+</ui:composition>
+

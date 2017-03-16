@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+    
+    <ui:define name="corpo">
+        <h:outputScript name="base.js" target="body" library="js" />
+        <h2 class="text-center">Graphics</h2>
+        <div class="container">
+            <div class="col-xs-6 col-xs-offset-3">
+                <h4 class="text-center">Real-time sales</h4>
+                <div id="chart1" class="big-chart"></div>
+            </div>
+        </div>
+        <hr/>
+        <div class="container">
+            <h4 class="text-center">Month Sales</h4>
+            <div class="col-xs-2 col-xs-offset-3">
+                <div id="chart2" class="line-chart"></div>
+            </div>
+            <div class="col-xs-2">
+                <div id="chart3" class="line-chart"></div>
+            </div>
+            <div class="col-xs-2">
+                <div id="chart4" class="line-chart"></div>
+            </div>
+        </div>
+        <!--            <hr>
+                        <div class="container">
+                            <h4 class="text-center">Donut charts</h4>
+                            <div class="col-xs-3 col-xs-offset-3">
+                                <div id="chart5" class="donut"></div>
+                                <div class="donut-label">24</div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div id="chart6" class="donut"></div>
+                                <div class="donut-label">75</div>
+                            </div>
+                        </div>-->
+
+    </ui:define>
+</ui:composition>
+
